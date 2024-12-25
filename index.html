@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Project Ideas Generator 🚀</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+:root {
+    --primary: #4f46e5;
+    --primary-dark: #4338ca;
+    --primary-light: #818cf8;
+    --secondary: #0ea5e9;
+    --success: #22c55e;
+    --success-dark: #15803d;
+    --background: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-light: #64748b;
+    --border: #e2e8f0;
+    --input-bg: #ffffff;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --hover-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --radius: 12px;
+    --transition: all 0.2s ease;
+}
+
+.dark-mode {
+    --primary: #818cf8;
+    --primary-dark: #6366f1;
+    --primary-light: #a5b4fc;
+    --secondary: #38bdf8;
+    --success: #4ade80;
+    --success-dark: #22c55e;
+    --background: #0f172a;
+    --card-bg: #1e293b;
+    --text: #e2e8f0;
+    --text-light: #94a3b8;
+    --border: #334155;
+    --input-bg: #0f172a;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+    --hover-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 20px;
+    transition: var(--transition);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    font-weight: 800;
+}
+
+.header p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: var(--transition);
+    border: 1px solid var(--border);
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--hover-shadow);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+
+.input-group label i {
+    color: var(--primary);
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    transition: var(--transition);
+    background: var(--input-bg);
+    color: var(--text);
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.input-group input::placeholder {
+    color: var(--text-light);
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.btn-success {
+    background: var(--success);
+    color: white;
+}
+
+.btn-success:hover:not(:disabled) {
+    background: var(--success-dark);
+    transform: translateY(-1px);
+}
+
+#loading {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid var(--border);
+    border-bottom-color: var(--primary);
+    border-radius: 50%;
+    display: inline-block;
+    animation: rotation 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+#projectContainer {
+    display: none;
+    animation: slideUp 0.3s ease-out;
+}
+
+.project-details {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.project-section {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+}
+
+
+.project-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--primary);
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.section-title i {
+    font-size: 1.1rem;
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    padding: 1rem;
+    background: var(--background);
+    border-radius: var(--radius);
+    transition: var(--transition);
+}
+
+.feature-item:hover {
+    transform: translateX(5px);
+}
+
+.feature-item i {
+    color: var(--success);
+    margin-top: 0.25rem;
+}
+
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.tag {
+    background: var(--primary);
+    color: white;
+    padding: 0.35rem 0.85rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    animation: scaleIn 0.2s ease-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+}
+
+.tag:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-theme {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.75rem;
+    border-radius: 50%;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--text);
+    box-shadow: var(--shadow);
+    z-index: 1000;
+}
+
+.toggle-theme:hover {
+    transform: scale(1.1);
+    box-shadow: var(--hover-shadow);
+}
+
+@keyframes rotation {
+    0% { transform: rotate(0deg) }
+    100% { transform: rotate(360deg) }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { 
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+    }
+    
+    .card {
+        padding: 1.5rem;
+    }
+    
+    .toggle-theme {
+        top: 0.5rem;
+        right: 0.5rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+@media print {
+    .toggle-theme,
+    .btn,
+    input,
+    select {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+}
+    </style>
+</head>
+<body>
+    <button class="toggle-theme" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <div class="container">
+        <div class="header">
+            <h1>AI Project Ideas Generator 🚀</h1>
+			<p>Out of ideas for your next project? Generate your next project idea easily and quickly (useful for high seas).</p>
+        </div>
+
+        <div class="card">
+            <div class="grid">
+                <div class="input-group">
+                    <label for="skillLevel">
+                        <i class="fas fa-graduation-cap"></i> Skill Level
+                    </label>
+                    <select id="skillLevel">
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="tools">
+                        <i class="fas fa-code"></i> Tools you will use
+                    </label>
+                    <input type="text" id="tools" placeholder="e.g., Python, React, TensorFlow">
+                </div>
+
+                <div class="input-group">
+                    <label for="projectType">
+                        <i class="fas fa-laptop-code"></i> Project Type
+                    </label>
+                    <select id="projectType">
+                        <option value="web">Web Application</option>
+                        <option value="mobile">Mobile App</option>
+                        <option value="data">Data Science</option>
+                        <option value="ml">Machine Learning</option>
+                        <option value="game">Game Development</option>
+                        <option value="any">Any Type</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="timeframe">
+                        <i class="fas fa-clock"></i> Development Time
+                    </label>
+                    <select id="timeframe">
+                        <option value="4">Quick (4 hours)</option>
+                        <option value="8">Medium (8 hours)</option>
+                        <option value="16">Large (16 hours)</option>
+                        <option value="24">Very Large (24 hours)</option>
+                        <option value="40">massive (40 hours)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="apiKeyInput">
+                    <i class="fas fa-key"></i> OpenAI API Key
+                    <p>(You can get your own key for free using <a href="https://app.slack.com/client/T0266FRGM/D0807G0NEEQ" target="_blank">OpenAI Genie</a>)</p>
+                </label>
+                
+                <input type="password" id="apiKeyInput" placeholder="Enter your OpenAI API Key">
+            </div>
+
+            <button class="btn btn-primary" id="generateProject">
+                <i class="fas fa-magic"></i> Generate Project Idea
+            </button>
+        </div>
+
+        <div id="loading">
+            <span class="loader"></span>
+            <p>Generating your next project idea...</p>
+        </div>
+
+        <div id="projectContainer" class="card">
+            <div id="projectContent"></div>
+            <button class="btn btn-success" id="copyProject">
+                <i class="fas fa-copy"></i> Copy Project Details
+            </button>
+        </div>
+    </div>
+
+    <script>
+const DEFAULT_ENDPOINT = 'https://jamsapi.hackclub.dev/openai/chat/completions';
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    const icon = document.querySelector('.toggle-theme i');
+    icon.classList.toggle('fa-moon');
+    icon.classList.toggle('fa-sun');
+}
+
+function formatProjectResponse(response) {
+    const sections = response.split('\n\n').filter(section => section.trim());
+    let formattedHtml = '<div class="project-details">';
+    
+    const sectionIcons = {
+        'Project Name': 'fa-lightbulb',
+        'Brief Description': 'fa-info-circle',
+        'Key Features': 'fa-list-check'
+    };
+
+    sections.forEach(section => {
+        const lines = section.trim().split('\n');
+        const firstLine = lines[0].trim();
+        
+        const sectionType = Object.keys(sectionIcons).find(type => 
+            firstLine.toLowerCase().includes(type.toLowerCase())
+        );
+
+        if (sectionType) {
+            const content = lines.slice(1).filter(line => line.trim());
+            formattedHtml += formatSection(firstLine, content, sectionIcons[sectionType]);
+        }
+    });
+
+    formattedHtml += '</div>';
+    return formattedHtml;
+}
+
+function formatSection(title, content, iconName) {
+    const cleanTitle = title.replace(/:/g, '').trim();
+    
+    let contentHtml = '';
+    
+    if (title.toLowerCase().includes('features') || containsList(content)) {
+        contentHtml = formatListContent(content);
+    } else {
+        contentHtml = formatParagraphContent(content);
+    }
+
+    return `
+        <div class="project-section">
+            <h3 class="section-title">
+                <i class="fas ${iconName || 'fa-circle-info'}"></i>
+                ${cleanTitle}
+            </h3>
+            <div class="section-content">
+                ${contentHtml}
+            </div>
+        </div>
+    `;
+}
+
+function containsList(content) {
+    return content.some(line => 
+        line.trim().match(/^[-•*]|\d+\.\s+/)
+    );
+}
+
+function formatListContent(content) {
+    const listItems = content.map(item => {
+        const cleanItem = item.trim()
+            .replace(/^[-•*]\s*/, '')
+            .replace(/^\d+\.\s*/, '')
+            .trim();
+            
+        if (cleanItem) {
+            return `
+                <li class="feature-item">
+                    <i class="fas fa-check-circle"></i>
+                    ${cleanItem}
+                </li>
+            `;
+        }
+        return '';
+    }).filter(item => item);
+
+    return `<ul class="feature-list">${listItems.join('')}</ul>`;
+}
+
+function formatParagraphContent(content) {
+    return content
+        .filter(para => para.trim())
+        .map(para => `<p>${para.trim()}</p>`)
+        .join('');
+}
+
+function generateTechTags(tools) {
+    if (!tools) return '';
+    
+    const tags = tools.split(',')
+        .map(tech => tech.trim())
+        .filter(tech => tech.length > 0)
+        .map(tech => `<span class="tag">${tech}</span>`)
+        .join('');
+        
+    return tags ? `<div class="tag-container">${tags}</div>` : '';
+}
+
+
+function createPrompt(skillLevel, tools, projectType, timeframe) {
+        return `Generate a detailed AI project idea with the following specifications:
+    Skill Level: ${skillLevel}
+    Tools will user use: ${tools || 'Any appropriate technologies'}
+    Project Type: ${projectType}
+    Development Timeframe: ${timeframe} hours
+
+    Please provide a structured response with these sections:
+
+    Project Name:
+    [A clear and descriptive title]
+
+    Brief Description:
+    [2-3 sentences explaining the project and It's value]
+
+    Key Features:
+    [List at least 4 key features (preferably more) that can be realistically implemented within ${timeframe} hours]
+
+    Please ensure clear formatting and avoid using excessive markdown symbols.`;
+    }
+
+async function generateProject(apiKey, skillLevel, tools, projectType, timeframe) {
+    try {
+        const response = await fetch(DEFAULT_ENDPOINT, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                model: "gpt-4o-mini",
+                messages: [
+                    {
+                        role: "system",
+                        content: "You are a creative AI project ideas generator that provides practical, innovative, and detailed project suggestions based on user requirements. Focus on current best practices and modern technology stacks."
+                    },
+                    {
+                        role: "user",
+                        content: createPrompt(skillLevel, tools, projectType, timeframe)
+                    }
+                ],
+            })
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error?.message || 'Failed to generate project idea');
+        }
+
+        const data = await response.json();
+        return data.choices[0].message.content;
+    } catch (error) {
+        throw new Error(`Failed to generate project: ${error.message}`);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const generateBtn = document.getElementById('generateProject');
+    const copyBtn = document.getElementById('copyProject');
+    const projectContainer = document.getElementById('projectContainer');
+    const loadingIndicator = document.getElementById('loading');
+
+    generateBtn.addEventListener('click', async function() {
+        const apiKey = document.getElementById('apiKeyInput').value;
+        const skillLevel = document.getElementById('skillLevel').value;
+        const tools = document.getElementById('tools').value;
+        const projectType = document.getElementById('projectType').value;
+        const timeframe = document.getElementById('timeframe').value;
+
+        if (!apiKey) {
+            alert('Please enter your OpenAI API Key');
+            return;
+        }
+
+        try {
+            projectContainer.style.display = 'none';
+            loadingIndicator.style.display = 'block';
+            generateBtn.disabled = true;
+
+            const projectIdea = await generateProject(apiKey, skillLevel, tools, projectType, timeframe);
+            
+            const projectContent = document.getElementById('projectContent');
+            projectContent.innerHTML = `
+                ${generateTechTags(tools)}
+                ${formatProjectResponse(projectIdea)}
+            `;
+            
+            projectContainer.style.display = 'block';
+        } catch (error) {
+            alert('Error generating project idea: ' + error.message);
+        } finally {
+            loadingIndicator.style.display = 'none';
+            generateBtn.disabled = false;
+        }
+    });
+
+    copyBtn.addEventListener('click', function() {
+        const projectText = document.getElementById('projectContent').innerText;
+        navigator.clipboard.writeText(projectText)
+            .then(() => {
+                this.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-copy"></i> Copy Project Details';
+                }, 2000);
+            })
+            .catch(err => {
+                console.error('failed to copy project text: ', err);
+                alert('Failed to copy project details.');
+            });
+    });
+});
+    </script>
+</body>
+</html>
